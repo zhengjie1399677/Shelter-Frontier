@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101b1b" />
+    <title>Shelter Frontier · 灰盒样板</title>
+  </head>
+  <body>
+    <main id="app">
+      <div id="game" aria-label="Shelter Frontier 游戏画面"></div>
+      <header class="hud" aria-label="游戏状态">
+        <div class="hud__group">
+          <span><i class="dot dot--wood"></i>木材 <b id="resource-wood">120</b></span>
+          <span><i class="dot dot--food"></i>口粮 <b id="resource-food">86</b></span>
+          <span><i class="dot dot--scrap"></i>废铁 <b id="resource-scrap">42</b></span>
+          <span>居民 <b><span id="resident-count">2</span> / <span id="housing-capacity">4</span></b></span>
+        </div>
+        <div class="hud__phase"><b id="day-label">第 1 天</b><span id="phase-label">白天 · 准备</span></div>
+        <div class="hud__group hud__group--right"><span id="enemy-status" hidden>敌人 <b id="enemy-count">0</b></span><span>城门 <b id="gate-health">850 / 850</b></span><button id="save-button" type="button" aria-label="保存游戏">保存</button><button class="night-start" id="night-start" type="button">开始夜防</button><button id="pause-toggle" type="button" aria-label="暂停游戏">Ⅱ</button></div>
+      </header>
+      <div class="night-overlay" id="night-overlay" aria-hidden="true"></div>
+      <aside class="hint"><b>灰盒总平面样板</b><span>WASD / 方向键移动 · P 显示/隐藏规划地块</span></aside>
+      <section class="build-mode" id="build-mode" aria-live="polite" hidden>
+        <span id="build-message"></span>
+        <button id="build-confirm" type="button">确认建造</button>
+        <button id="build-cancel" type="button">取消</button>
+      </section>
+      <div class="interaction-prompt" id="interaction-prompt" role="status" aria-live="polite" hidden></div>
+      <section class="battle-banner" id="battle-banner" role="status" aria-live="polite" hidden><strong id="battle-title"></strong><span id="battle-message"></span></section>
+      <section class="defeat-panel" id="defeat-panel" role="dialog" aria-modal="true" aria-labelledby="defeat-title" hidden><span>防线失守</span><h2 id="defeat-title">城门已被突破</h2><p>幸存者只能撤离。重新开始这一天，再调整站位与射击节奏。</p><button id="restart-button" type="button">重新开始</button></section>
+      <aside class="inspect-panel" id="inspect-panel" aria-label="目标信息" hidden>
+        <button class="inspect-panel__close" id="inspect-close" type="button" aria-label="关闭信息面板">×</button>
+        <span class="inspect-panel__eyebrow" id="inspect-kind"></span>
+        <h2 id="inspect-name"></h2>
+        <p id="inspect-summary"></p>
+        <strong id="inspect-status"></strong>
+        <section class="resident-details" id="resident-details" hidden>
+          <dl>
+            <div><dt>健康</dt><dd id="resident-health"></dd></div>
+            <div><dt>饱食</dt><dd id="resident-hunger"></dd></div>
+            <div><dt>士气</dt><dd id="resident-morale"></dd></div>
+          </dl>
+          <span class="resident-details__label">安排岗位</span>
+          <div class="job-actions">
+            <button type="button" data-job="field-1">菜地</button>
+            <button type="button" data-job="lumber-1">伐木</button>
+            <button type="button" data-job="none">取消</button>
+          </div>
+        </section>
+        <section class="quarantine-details" id="quarantine-details" hidden>
+          <span class="resident-details__label">隔离位 <b id="quarantine-capacity">0 / 4</b></span>
+          <div id="quarantine-candidate"></div>
+          <div class="quarantine-actions">
+            <button type="button" data-quarantine-action="check">检查（6 废铁）</button>
+            <button type="button" data-quarantine-action="extend">延长观察</button>
+            <button type="button" data-quarantine-action="release">提前放行</button>
+            <button type="button" data-quarantine-action="reject">拒绝接纳</button>
+          </div>
+        </section>
+      </aside>
+      <nav class="buildbar" aria-label="建造栏">
+        <button type="button" data-build="home"><span>⌂</span>住房</button>
+        <button type="button" data-build="field"><span>⌁</span>菜地</button>
+        <button type="button" data-build="lumber"><span>▥</span>伐木</button>
+        <button type="button" data-build="wire"><span>╫</span>铁丝网</button>
+        <button type="button" data-build="mine"><span>◇</span>地雷</button>
+      </nav>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
